@@ -1,6 +1,6 @@
 module Hanja
 
-export 사전고르기
+export 사전불러오기
 export 한자찾기, 독음으로찾기
 export 한글보기, 정체보기, 간체보기
 export 한자옆에한글보기, 한글옆에한자보기, 한자옆에간체보기, 간체옆에정체보기, 간체옆에정체보기
@@ -18,6 +18,10 @@ end
 function 사전고르기(M::Symbol)
   eval(:(using $M))
   global 현재사전 = eval(:($M.사전))
+end
+
+function 사전불러오기()
+  사전고르기(:HanjaDict)
 end
 
 if nothing == 현재사전
@@ -138,8 +142,9 @@ using Base.Test
 @test "기천수련" == 한글보기("氣天수련")
 @test "氣天(기천)수련" == 한자옆에한글보기("氣天수련")
 
-
-# 사전고르기(:HanjaDict)
+# Pkg.add("HDF5")
+# Pkg.add("JLD")
+# 사전불러오기()
 # @test "기무천연" == 한글보기("氣武天然")
 
 end # module
