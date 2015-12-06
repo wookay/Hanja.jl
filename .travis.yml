@@ -5,6 +5,8 @@ julia:
 #  - release
   - nightly
 script:
-  - julia --code-coverage test/runtests.jl
+  - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
+  - julia --color=yes -e 'Pkg.add("JLD")'
+  - julia --color=yes -e 'Pkg.clone(pwd()); Pkg.build("Hanja"); Pkg.test("Hanja"; coverage=true)'
 after_success:
-  - julia -e 'Pkg.add("Coverage"); using Coverage; Coveralls.submit(process_folder("src"))'
+  - julia --color=yes -e 'if VERSION >= v"0.4-"; cd(Pkg.dir("Hanja")); Pkg.add("Coverage"); using Coverage; Coveralls.submit(Coveralls.process_folder()); end'
