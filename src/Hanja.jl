@@ -8,9 +8,9 @@ export 한자옆에한글보기, 한글옆에한자보기, 한자옆에간체보
 
 type 한자타입
   코드::UInt16
-  정체::String
-  간체::String
-  독음::String
+  정체::AbstractString
+  간체::AbstractString
+  독음::AbstractString
   획수::Int
 end
 
@@ -28,13 +28,13 @@ if nothing == 현재사전
   사전고르기(:HanjaDictSample)
 end
 
-사전에서(한자::String) = 한자타입(현재사전[한자]...)
+사전에서(한자::AbstractString) = 한자타입(현재사전[한자]...)
 
-function 한자찾기(한자::String)
+function 한자찾기(한자::AbstractString)
   사전에서(한자)
 end
 
-function 독음으로찾기(찾을독음::String)
+function 독음으로찾기(찾을독음::AbstractString)
   결과 = []
   for (한자, (코드,정체,간체,독음,획수)) in 현재사전
     if contains(독음, 찾을독음)
@@ -56,7 +56,7 @@ for (func, block) in [
     end),
   ]
   @eval begin
-    function $(func)(문장::String)
+    function $(func)(문장::AbstractString)
       결과 = []
       for 글자 in split(문장, "")
         if haskey(현재사전, 글자)
@@ -93,7 +93,7 @@ for (func, block) in [
     end),
   ]
   @eval begin
-    function $(func)(문장::String)
+    function $(func)(문장::AbstractString)
       결과 = []
       찾음 = false
       단어 = []
