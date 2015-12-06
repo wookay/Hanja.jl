@@ -24,4 +24,7 @@ export 간체옆에정체보기
 export 간체옆에정체보기
 include("finder.jl")
 
+export 사전가져오기
+include("dict.jl")
+
 end # module

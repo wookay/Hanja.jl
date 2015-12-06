@@ -27,6 +27,5 @@ using Base.Test
 @test "氣天(기천)수련" == 한자옆에한글보기(사전, "氣天수련")
 
 
-using JLD
-사전 = load(normpath(Pkg.dir("Hanja"), "data/dict.jld"), "dict")
+사전 = 사전가져오기()
 @test "기무천연" == 한글보기(사전, "氣武天然")

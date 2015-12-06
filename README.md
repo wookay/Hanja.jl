@@ -37,7 +37,7 @@ using Base.Test
 @test "氣天(기천)수련" == 한자옆에한글보기(사전, "氣天수련")
 
 
-using JLD
-사전 = load("data/dict.jld", "dict")
+# Pkg.add("JLD")
+사전 = 사전가져오기()
 @test "기무천연" == 한글보기(사전, "氣武天然")
 ```
