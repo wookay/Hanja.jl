@@ -1,11 +1,11 @@
 # Hanja
 
 Linux, OSX: [![Build Status](https://api.travis-ci.org/wookay/Hanja.jl.svg?branch=master)](https://travis-ci.org/wookay/Hanja.jl)
-Windows: [![Build status](https://ci.appveyor.com/api/projects/status/jf1dn55yc0u4q2dt?svg=true)](https://ci.appveyor.com/project/wookay/Hanja.jl)
 [![Coverage Status](https://coveralls.io/repos/wookay/Hanja.jl/badge.svg?branch=master&service=github)](https://coveralls.io/github/wookay/Hanja.jl?branch=master)
 
 ```julia
-Pkg.clone("https://github.com/wookay/Hanja.jl")
+using Pkg
+pkg"add https://github.com/wookay/Hanja.jl"
 ```
 
 ```julia
@@ -37,7 +37,6 @@ using Base.Test
 @test "氣天(기천)수련" == 한자옆에한글보기(사전, "氣天수련")
 
 
-# Pkg.add("JLD")
 사전 = 사전가져오기()
 @test "기무천연" == 한글보기(사전, "氣武天然")
 ```

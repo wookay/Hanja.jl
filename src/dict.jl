@@ -1,6 +1,6 @@
-function 사전가져오기(
-    path::AbstractString=normpath(Pkg.dir("Hanja"), "data/dict.jld"),
-    key::AbstractString="dict")
-  @eval using JLD
-  return load(path, key)
+using BSON
+
+function 사전가져오기(path::String=normpath(@__DIR__, "..", "data", "dict.bson"))
+    BSON.@load path dict
+    return dict
 end

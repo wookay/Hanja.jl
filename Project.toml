@@ -1,0 +1,13 @@
+authors = ["WooKyoung Noh <wookay.noh@gmail.com>"]
+name = "Hanja"
+uuid = "de2dd24e-0ba5-11e9-1f6d-9dc38c9c8708"
+version = "0.1.0"
+
+[deps]
+BSON = "fbb218c0-5317-5bc6-957e-2ee96dd4b1f0"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]

@@ -1,31 +1,32 @@
-using Hanja
-using Base.Test
+using Test
 
-사전 = Dict(
-  "氣" => (0x6c23, "氣", "气", "기", 10),
-  "气" => (0x6c14, "氣", "气", "기", 4),
-  "天" => (0x5929, "",   "",   "천", 4),
-)
+function runtests(tests)
+    n_passed = 0
+    anynonpass = 0
+    for (idx, filepath) in enumerate(all_tests)
+        numbering = string(idx, /, length(all_tests))
+        ts = @testset "$numbering $filepath" begin
+            include(filepath)
+        end
+        n_passed += ts.n_passed
+        anynonpass += ts.anynonpass
+    end
+    if iszero(anynonpass)
+        printstyled("✅  ", color=:green)
+        print("All ")
+        printstyled(n_passed, color=:green)
+        println(" tests have been completed.")
+    end
+end
 
-氣 = 한자찾기(사전, "氣")
-using Base.Test
-@test 0x6c23 == 氣.코드
-@test "氣" == 氣.정체
-@test "气" == 氣.간체
-@test "기" == 氣.독음
-@test 10 == 氣.획수
-@test ["氣", "气"] == 독음으로찾기(사전, "기")
-@test "기천" == 한글보기(사전, "氣天")
-@test "氣天" == 정체보기(사전, "气天")
-@test "气天" == 간체보기(사전, "氣天")
-@test "氣天(기천)" == 한자옆에한글보기(사전, "氣天")
-@test "기천(氣天)" == 한글옆에한자보기(사전, "氣天")
-@test "氣天(气天)" == 한자옆에간체보기(사전, "氣天")
-@test "气天(氣天)" == 간체옆에정체보기(사전, "氣天")
-@test "气天(氣天)" == 간체옆에정체보기(사전, "气天")
-@test "기천수련" == 한글보기(사전, "氣天수련")
-@test "氣天(기천)수련" == 한자옆에한글보기(사전, "氣天수련")
-
-
-사전 = 사전가져오기()
-@test "기무천연" == 한글보기(사전, "氣武天然")
+all_tests = []
+for (root, dirs, files) in walkdir(".")
+    for filename in files
+        !endswith(filename, ".jl") && continue
+        "runtests.jl" == filename && continue
+        filepath = joinpath(root, filename)[3:end]
+        !isempty(ARGS) && !any(x->startswith(filepath, x), ARGS) && continue
+        push!(all_tests, filepath)
+    end
+end
+runtests(all_tests)

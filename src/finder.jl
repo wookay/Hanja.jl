@@ -5,7 +5,7 @@ end
 function 독음으로찾기(사전::한자사전, 찾을독음::AbstractString)
   결과 = []
   for (한자, (코드,정체,간체,독음,획수)) in 사전
-    if contains(독음, 찾을독음)
+    if occursin(찾을독음, 독음)
       push!(결과, 한자)
     end
   end

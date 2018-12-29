@@ -1,14 +1,12 @@
 module Hanja
 
-__precompile__(true)
+const 한자사전 = Dict
 
-typealias 한자사전 Dict
-
-type 한자타입
+struct 한자타입
   코드::UInt16
-  정체::AbstractString
-  간체::AbstractString
-  독음::AbstractString
+  정체::String
+  간체::String
+  독음::String
   획수::Int
 end
 

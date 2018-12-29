@@ -1,12 +1,18 @@
+# Documentation: http://docs.travis-ci.com/user/languages/julia/
+notifications:
+  email: false
+
 language: julia
-os:
-  - linux
+
 julia:
-#  - release
-  - nightly
-script:
-  - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
-  - julia --color=yes -e 'Pkg.add("JLD")'
-  - julia --color=yes -e 'Pkg.clone(pwd()); Pkg.build("Hanja"); Pkg.test("Hanja"; coverage=true)'
-after_success:
-  - julia --color=yes -e 'if VERSION >= v"0.4-"; cd(Pkg.dir("Hanja")); Pkg.add("Coverage"); using Coverage; Coveralls.submit(Coveralls.process_folder()); end'
+  - 1.0
+
+matrix:
+  include:
+    - os: windows
+      language: sh
+      before_install:
+        - choco install julia
+      script:
+        - julia --color=yes -e 'using InteractiveUtils; versioninfo(verbose=true)'
+        - julia --color=yes --project=. -e 'using Pkg; Pkg.test()'
