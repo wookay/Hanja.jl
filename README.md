@@ -1,7 +1,9 @@
 # Hanja
 
-Linux, OSX: [![Build Status](https://api.travis-ci.org/wookay/Hanja.jl.svg?branch=master)](https://travis-ci.org/wookay/Hanja.jl)
-[![Coverage Status](https://coveralls.io/repos/wookay/Hanja.jl/badge.svg?branch=master&service=github)](https://coveralls.io/github/wookay/Hanja.jl?branch=master)
+|  **Build Status**                                                |
+|:----------------------------------------------------------------:|
+|  [![][travis-img]][travis-url]  [![][codecov-img]][codecov-url]  |
+
 
 ```julia
 using Pkg
@@ -18,7 +20,7 @@ using Hanja
 )
 
 氣 = 한자찾기(사전, "氣")
-using Base.Test
+using Test
 @test 0x6c23 == 氣.코드
 @test "氣" == 氣.정체
 @test "气" == 氣.간체
@@ -40,3 +42,10 @@ using Base.Test
 사전 = 사전가져오기()
 @test "기무천연" == 한글보기(사전, "氣武天然")
 ```
+
+
+[travis-img]: https://api.travis-ci.org/wookay/Hanja.jl.svg?branch=master
+[travis-url]: https://travis-ci.org/wookay/Hanja.jl
+
+[codecov-img]: https://codecov.io/gh/wookay/Hanja.jl/branch/master/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/wookay/Hanja.jl/branch/master
